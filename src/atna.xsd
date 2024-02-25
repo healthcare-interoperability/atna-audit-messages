@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:datatypes="http://www.w3.org/2001/XMLSchema-datatypes"
+           targetNamespace="http://example.com"
+           elementFormDefault="qualified">
+
+  <xs:import namespace="http://www.w3.org/2001/XMLSchema-datatypes" schemaLocation="http://www.w3.org/2001/XMLSchema-datatypes"/>
+
+  <!-- Coded Value Type -->
+  <xs:simpleType name="OtherCSDAttributesType">
+    <xs:union memberTypes="xs:token"/>
+  </xs:simpleType>
+
+  <xs:complexType name="OtherCSDAttributes">
+    <xs:choice>
+      <xs:element name="codeSystemName" type="OtherCSDAttributesType" minOccurs="0"/>
+      <xs:element name="codeSystemName" type="OtherCSDAttributesType"/>
+    </xs:choice>
+    <xs:element name="displayName" type="xs:token" minOccurs="0"/>
+    <xs:element name="originalText" type="xs:token"/>
+  </xs:complexType>
+
+  <xs:complexType name="CodedValueType">
+    <xs:attribute name="csd-code" type="xs:token"/>
+    <xs:sequence>
+      <xs:element ref="datatypes:other-csd-attributes"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Event Identification Contents -->
+  <xs:complexType name="EventIdentificationContents">
+    <xs:sequence>
+      <xs:element name="EventID" type="CodedValueType"/>
+      <xs:element name="EventTypeCode" type="CodedValueType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:attribute name="EventActionCode" type="xs:string"/>
+      <xs:attribute name="EventDateTime" type="xs:dateTime"/>
+      <xs:attribute name="EventOutcomeIndicator" type="xs:string"/>
+      <xs:element name="EventOutcomeDescription" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Audit Source Identification Contents -->
+  <xs:complexType name="AuditSourceIdentificationContents">
+    <xs:sequence>
+      <xs:element name="code" type="xs:token"/>
+      <xs:element ref="datatypes:other-csd-attributes" minOccurs="0"/>
+      <xs:element name="AuditEnterpriseSiteID" type="xs:token" minOccurs="0"/>
+      <xs:element name="AuditSourceID" type="xs:token"/>
+      <xs:element name="AuditSourceTypeCode" type="xs:token" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Active Participant Contents -->
+  <xs:complexType name="ActiveParticipantContents">
+    <xs:sequence>
+      <xs:element name="RoleIDCode" type="CodedValueType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="MediaIdentifier">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="MediaType" type="CodedValueType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:attribute name="UserID" type="xs:string"/>
+      <xs:attribute name="AlternativeUserID" type="xs:string" minOccurs="0"/>
+      <xs:attribute name="UserName" type="xs:string" minOccurs="0"/>
+      <xs:attribute name="UserIsRequestor" type="xs:boolean"/>
+      <xs:attribute name="NetworkAccessPointID" type="xs:token" minOccurs="0"/>
+      <xs:attribute name="NetworkAccessPointTypeCode" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Value Pair -->
+  <xs:complexType name="ValuePair">
+    <xs:attribute name="type" type="xs:token"/>
+    <xs:attribute name="value" type="xs:base64Binary"/>
+  </xs:complexType>
+
+  <!-- Participant Object Identification Contents -->
+  <xs:complexType name="ParticipantObjectIdentificationContents">
+    <xs:sequence>
+      <xs:element name="ParticipantObjectIDTypeCode" type="CodedValueType"/>
+      <xs:choice>
+        <xs:element name="ParticipantObjectName" type="xs:token"/>
+        <xs:element name="ParticipantObjectQuery" type="xs:base64Binary"/>
+      </xs:choice>
+      <xs:element name="ParticipantObjectDetail" type="ValuePair" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="ParticipantObjectDescription" type="xs:token" minOccurs="0" maxOccurs="unbounded"/>
+      <!-- Additional DICOMObjectDescriptionContents elements go here -->
+      <xs:attribute name="ParticipantObjectID" type="xs:token"/>
+      <xs:attribute name="ParticipantObjectTypeCode" type="xs:string" minOccurs="0"/>
+      <xs:attribute name="ParticipantObjectTypeCodeRole" type="xs:string" minOccurs="0"/>
+      <xs:attribute name="ParticipantObjectDataLifeCycle" type="xs:string" minOccurs="0"/>
+      <xs:attribute name="ParticipantObjectSensitivity" type="xs:token" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Message -->
+  <xs:element name="AuditMessage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="EventIdentification" type="EventIdentificationContents"/>
+        <xs:element name="ActiveParticipant" type="ActiveParticipantContents" minOccurs="1" maxOccurs="unbounded"/>
+        <xs:element name="AuditSourceIdentification" type="AuditSourceIdentificationContents"/>
+        <xs:element name="ParticipantObjectIdentification" type="ParticipantObjectIdentificationContents" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

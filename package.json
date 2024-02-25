@@ -1,0 +1,23 @@
+{
+  "name": "@interoperability/atna-audit-messages",
+  "version": "1.0.0",
+  "description": "The ATNA Audit Messages Generator is a JavaScript library that provides a set of reusable static methods for generating Audit Trail and Node Authentication (ATNA) compliant audit messages. This library is particularly useful in healthcare systems and other contexts where standardized audit messages are required.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src -d dist"
+  },
+  "author": "",
+  "license": "AGPL-3.0-only",
+  "dependencies": {
+    "xml-js": "^1.6.11"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.4",
+    "@babel/node": "^7.18.10",
+    "@babel/plugin-transform-modules-commonjs": "^7.22.15",
+    "@babel/preset-env": "^7.21.4",
+    "nodemon": "^2.0.22"
+  }
+}
