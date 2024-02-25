@@ -140,7 +140,7 @@ To use the ATNA Audit Messages Generator, call the static methods of the `ATNA` 
 Example:
 
 ```javascript
-const userLoginMessage = ATNA.userLoginAudit('success', 'SystemA', 'localhost', 'user1', 'Administrator', 'ADMIN_ROLE');
+const userLoginMessage = ATNAMessage.userLoginAudit('success', 'SystemA', 'localhost', 'user1', 'Administrator', 'ADMIN_ROLE');
 console.log(userLoginMessage);
 ```
 
