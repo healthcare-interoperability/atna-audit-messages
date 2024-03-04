@@ -25,7 +25,7 @@ export class ATNAComplexType {
      * @returns {XMLElement} - The XML representation of the complex type.
      */
     toXML() {
-        return xmljsconverter.json2xml(new XMLElement().addChild(this.prepareXML()),  {compact: false, spaces: 4})
+        return xmljsconverter.json2xml(JSON.stringify(new XMLElement().addChild(this.prepareXML())),  {compact: false, spaces: 4})
     }
 
     /**
