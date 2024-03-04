@@ -14,7 +14,7 @@ The ATNA Audit Messages Generator is a JavaScript library that provides a set of
 To install the ATNA Audit Messages Generator, use npm:
 
 ```bash
-npm install atna-audit-messages
+npm i @interoperability/atna-audit-messages
 ```
 
 ### 3. `ATNAComplexType`

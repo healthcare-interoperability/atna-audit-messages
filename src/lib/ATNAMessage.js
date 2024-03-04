@@ -4,7 +4,7 @@ import { AuditSourceIdentification } from "./AuditSourceIdentification.js";
 import { Code } from "./Code";
 import { EventIdentification } from "./EventIdentification";
 import { ParticipantObjectIdentification } from "./ParticipantObjectIdentification.js";
-import { EventOutcomeIndicator, NetworkAccessPointType, AuditSourceTypeCode, ParticipantObjectTypeCodeRole, ParticipantObjectTypeCode, EventActionType } from "../constants.js";
+import { EventOutcomeIndicator, NetworkAccessPointType, AuditSourceTypeCode, ParticipantObjectTypeCodeRole, ParticipantObjectTypeCode, EventActionType, ParticipantObjectIDTypeCode } from "../constants.js";
 /**
  * ATNA class provides static methods for generating ATNA-compliant audit messages.
  */
@@ -110,10 +110,10 @@ export class ATNAMessage {
         let userParticipant = new ActiveParticipant(username, '', true)
             .setRoleIDCodes([userRoleCodeDef]);
 
-        let sourceTypeCode = new Code(constants.AUDIT_SRC_TYPE_UI, '');
+        let sourceTypeCode = new Code(AuditSourceTypeCode.AUDIT_SRC_TYPE_UI, '');
         let sourceIdent = new AuditSourceIdentification(null, sysname, sourceTypeCode);
 
-        let objIdTypeCode = new Code(constants.OBJ_ID_TYPE_URI, 'URI');
+        let objIdTypeCode = new Code(ParticipantObjectIDTypeCode.OBJ_ID_TYPE_URI, 'URI');
 
         let participantObj = new ParticipantObjectIdentification(auditLogURI)
             .setParticipantObjectTypeCode(ParticipantObjectTypeCode.OBJ_TYPE_SYS_OBJ)
@@ -159,7 +159,7 @@ export class ATNAMessage {
             .setParticipantObjectIDTypeCode(objIdTypeCode)
             .setParticipantObjectName(nodeIP);
 
-        let sourceTypeCode = new Code(constants.AUDIT_SRC_TYPE_WEB_SERVER, '');
+        let sourceTypeCode = new Code(AuditSourceTypeCode.AUDIT_SRC_TYPE_WEB_SERVER, '');
         let sourceIdent = new AuditSourceIdentification(null, sysname, sourceTypeCode);
 
         let audit = new AuditMessage(eIdent)
